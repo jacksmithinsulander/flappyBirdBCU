@@ -1,0 +1,3 @@
+indentation = 4 spaces
+html class names (for sass) = BEM naming convention
+all other naming conventions = camelCase

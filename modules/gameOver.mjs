@@ -7,7 +7,7 @@
 
         // profit 
 
-// ska dessa kanske hellre sättas i script.js?
+// sättas i script.js?
 const gameOverScreenBody = document.getElementById('gameOverScreenBody');
 const gameOverText = document.getElementById('gameOverText');
 const pressXToTryAgain = document.getElementById('pressXToTryAgain');
