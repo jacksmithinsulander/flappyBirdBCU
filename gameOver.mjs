@@ -1,36 +1,37 @@
 
-    if  //gubben dör 
+        // gameOver anropas när spelaren förlorar
+
         // skapa en dom-manipulation-frame
-        // denna frame ska innehålla en knapp (hämta från login-uppg)
-        // både 'quit'- och 'try again'-knapp?
+        // frame:n ska innehålla en knapp (quit) + eventListener
+        // "press x to try again" text <p> + eventListener
 
-        //knapparna behöver såklart eventliseners 
         // profit 
-    else 
-       //  console.log('du lever, nice');
-    
 
-
-export function gameOver() {
-    gameOverBody.style.display = 'block';
-
-	//sätts in i eventListener
-	// startGame(); 
-}
-
-// hämtar in element
-const gameOverBody = document.getElementById('gameOverBody');
+// ska dessa kanske hellre sättas i script.js?
+const gameOverScreenBody = document.getElementById('gameOverScreenBody');
+const gameOverText = document.getElementById('gameOverText');
+const pressXToTryAgain = document.getElementById('pressXToTryAgain');
 const quitGameBtn = document.getElementById('quitGameBtn');
 
-function gameOver() {
-	let quitGameBtn = document.createElement("button");
-    quitGameBtn.innerText = "Quit";
-    demo.appendChild(logoutBtn);
+gameOverScreenBody.style.display = 'none'; //ska visas som default
 
-	
+export function gameOver() {
+    gameOverScreenBody.style.display = 'block';
+    gameOverScreenBody.innerText = 'Press X to try again';
+
+	let quitGameBtn = document.createElement('button');
+    quitGameBtn.innerText = 'Quit';
+
+   // gameOverScreenBody.appendChild(quitGameBtn);
+
+
+    quitGameBtn.addEventListener('click', () => {
+        // funktion för att avsluta spelet
+    });
+
+    pressXToTryAgain.addEventListener('click', () => {
+        // funktion för att starta om spelet
+        // ex. 'startGame();' 
+    });
+	 
 }
-
-quitGameBtn.addEventListener('click'); {
-	gameOverBody.style.display = 'none'
-	
-};
