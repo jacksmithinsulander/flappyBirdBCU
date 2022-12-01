@@ -105,9 +105,9 @@ function gameOver() {
   quitGameBtn.innerText = "Quit"; // måste knappen skapas i js ist?
   quitGameBtn.addEventListener("click", () => {
     window.location.reload();
-    let enemyId = 0; 
-    startScreen();
-    wrapper.style.display="none";
+    //let enemyId = 0; 
+    //startScreen();
+    //wrapper.style.display="none";
   });
   //pressXToTryAgain.addEventListener("click", () => {
 
@@ -117,6 +117,10 @@ function gameOver() {
 // has context menu
 function createEnemy() {
   //let enemyId = 0;
+  var heroTop = parseInt(
+      window.getComputedStyle(hero).getPropertyValue("top")
+    );
+
   enemyId++;
   let enemy = document.createElement("div");
   enemy.classList = "enemy";
@@ -142,32 +146,41 @@ function createEnemy() {
     enemyLeft -= 30;
     enemy.style.left = enemyLeft + "px";
     enemyUnder.style.left = enemyLeft + "px";
+	//console.log("enemy bottom is", enemyBottom)
     //console.log(enemyBottom, hero.style.top);
     // console.log(enemyBottom, bottom + 150);
     //console.log();
-    if (
-      enemyBottom > bottom &&
-      enemyBottom < bottom + 150 &&
-      enemyLeft === left
-    ) {
+    //if (enemyLeft === left && heroTop < enemyBottom) {
+    //) {
       //console.log("HIT");
-      gameOver();
+      //gameOver();
       //let dead = setInterval(() => {
         //hero.style.backgroundColor = "red";
-
+        //console.log("this should be game over");
         //let resurect = setInterval(() => {
           //hero.style.backgroundColor = "purple";
           //clearInterval(dead);
         //}, 100);
       //}, 100);
-    }
+    //}
 
     if (enemyLeft <= 0) {
       clearInterval(move);
       enemy.remove();
       enemyUnder.remove();
       createEnemy();
-    }
+      console.log("hero top is", heroTop, "enemy bottom is", enemyBottom);
+	if (heroTop < enemyBottom) {
+		console.log("hit over")
+		gameOver();
+		} //else if (heroTop > (enemyBottom + 230)) {
+		//console.log("hit under");
+		//gameOver();
+	//}
+    } //else if (heroTop < enemyBottom && enemyLeft === left) {
+       //gameOver();
+	//console.log("this should be game over")
+    //}  
   }, 50);
   
   game.appendChild(enemy);
