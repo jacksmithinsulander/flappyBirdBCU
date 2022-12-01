@@ -170,13 +170,13 @@ function createEnemy() {
       enemyUnder.remove();
       createEnemy();
       console.log("hero top is", heroTop, "enemy bottom is", enemyBottom);
-	if (heroTop < enemyBottom) {
+	if (heroTop < (enemyBottom - 90)) {
 		console.log("hit over")
 		gameOver();
-		} //else if (heroTop > (enemyBottom + 230)) {
-		//console.log("hit under");
-		//gameOver();
-	//}
+		} else if (heroTop > (enemyBottom + 230)) {
+		console.log("hit under");
+		gameOver();
+	}
     } //else if (heroTop < enemyBottom && enemyLeft === left) {
        //gameOver();
 	//console.log("this should be game over")
