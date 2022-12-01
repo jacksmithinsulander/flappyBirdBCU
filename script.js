@@ -1,28 +1,36 @@
-// import { createEnemy } from "./modules/enemySpawner.mjs";
-// import { startScreen } from "./modules/startScreen.mjs";
-// import { gameOver } from "./modules/endgame.mjs";
-
 let hero = document.getElementById("hero");
 let game = document.getElementById("game");
 
-let top = 50;
+//let top = 50;
 let bottom = 0;
 let left = 50;
 
 let enemyId = 0;
 
 var jumping = 0;
-var counter = 0;
+//var counter = 0;
 function gamePage() {
-  hero.style.top = 0 + "px";
-  setInterval(function () {
+  createEnemy();
+  //let enemyId = 0;
+  //hero.style.display=block;
+  //hero.style.top = 0 + "px";
+  let gravity = setInterval(() => {
     var heroTop = parseInt(
       window.getComputedStyle(hero).getPropertyValue("top")
     );
+    if(jumping==0){
+	hero.style.top = (heroTop+3)+"px";
+    }
     //console.log(heroTop);
     if (heroTop > 550) {
-      hero.style.top = 0 + "px";
+      //hero.style.top = 100 + "px";
       gameOver();
+	clearInterval(gravity);
+	//clearInterval(enemy);
+	//clearInterval(enemyUnder);
+      //hero.style.top = 100 + "px";
+	//counter=0;
+	//let enemyId = 0;
     }
     hero.style.top = heroTop + 3 + "px";
   }, 10);
@@ -33,11 +41,10 @@ function gamePage() {
       return;
     } else if (e.key == " ") {
       jump();
-    } else if (e.key == "g") {
-      gameOver();
     }
-  });
 
+  });
+}
   function jump() {
     jumping = 1;
     let jumpCount = 0;
@@ -45,8 +52,8 @@ function gamePage() {
       var heroTop = parseInt(
         window.getComputedStyle(hero).getPropertyValue("top")
       );
-      if (heroTop > 6 && jumpCount < 15) {
-        hero.style.top = heroTop - 8 + "px";
+      if ((heroTop > 6) && (jumpCount < 15)) {
+        hero.style.top = (heroTop - 8) + "px";
       }
       if (jumpCount > 20) {
         clearInterval(jumpInterval);
@@ -56,8 +63,8 @@ function gamePage() {
       jumpCount++;
     }, 10);
   }
-  createEnemy();
-}
+  //createEnemy();
+//}
 
 function startScreen() {
   let start = document.getElementById("startScreen");
@@ -77,14 +84,20 @@ function startScreen() {
     game.style.display = "block";
     // gameCanvas.style.display = "";
     gamePage();
+	hero.style.top = 0 + "px";
   });
 }
 
 function gameOver() {
+	//clearInterval(gravity);
+  //enemId=0;
+  //game.removeChild(enemy);
+  //game.removeChild(enemyUnder);
   let wrapper = document.getElementById("wrapper");
   let game = document.getElementById("game");
   game.style.display = "none";
   wrapper.style.display = "block";
+  //hero.style.display="none"
   gameOverScreenBody.style.display = "block";
   // sätter ut text
   gameOverText.innerText = "GAME OVER";
@@ -92,7 +105,9 @@ function gameOver() {
   quitGameBtn.innerText = "Quit"; // måste knappen skapas i js ist?
   quitGameBtn.addEventListener("click", () => {
     window.location.reload();
-    startScreen();
+    //let enemyId = 0; 
+    //startScreen();
+    //wrapper.style.display="none";
   });
   //pressXToTryAgain.addEventListener("click", () => {
 
@@ -101,6 +116,11 @@ function gameOver() {
 }
 // has context menu
 function createEnemy() {
+  //let enemyId = 0;
+  var heroTop = parseInt(
+      window.getComputedStyle(hero).getPropertyValue("top")
+    );
+
   enemyId++;
   let enemy = document.createElement("div");
   enemy.classList = "enemy";
@@ -126,37 +146,45 @@ function createEnemy() {
     enemyLeft -= 30;
     enemy.style.left = enemyLeft + "px";
     enemyUnder.style.left = enemyLeft + "px";
-    console.log(enemyBottom, hero.style.top);
+	//console.log("enemy bottom is", enemyBottom)
+    //console.log(enemyBottom, hero.style.top);
     // console.log(enemyBottom, bottom + 150);
-    console.log();
-    if (
-      enemyBottom > bottom &&
-      enemyBottom < bottom + 150 &&
-      enemyLeft === left
-    ) {
-      console.log("HIT");
-      gameOver();
-      let dead = setInterval(() => {
-        hero.style.backgroundColor = "red";
-
-        let resurect = setInterval(() => {
-          hero.style.backgroundColor = "purple";
-          clearInterval(dead);
-        }, 100);
-      }, 100);
-    }
+    //console.log();
+    //if (enemyLeft === left && heroTop < enemyBottom) {
+    //) {
+      //console.log("HIT");
+      //gameOver();
+      //let dead = setInterval(() => {
+        //hero.style.backgroundColor = "red";
+        //console.log("this should be game over");
+        //let resurect = setInterval(() => {
+          //hero.style.backgroundColor = "purple";
+          //clearInterval(dead);
+        //}, 100);
+      //}, 100);
+    //}
 
     if (enemyLeft <= 0) {
       clearInterval(move);
       enemy.remove();
       enemyUnder.remove();
       createEnemy();
-    }
+      console.log("hero top is", heroTop, "enemy bottom is", enemyBottom);
+	if (heroTop < (enemyBottom - 90)) {
+		console.log("hit over")
+		gameOver();
+		} else if (heroTop > (enemyBottom + 230)) {
+		console.log("hit under");
+		gameOver();
+	}
+    } //else if (heroTop < enemyBottom && enemyLeft === left) {
+       //gameOver();
+	//console.log("this should be game over")
+    //}  
   }, 50);
-
+  
   game.appendChild(enemy);
   game.appendChild(enemyUnder);
 }
 startScreen();
 
-// var är gubben =
