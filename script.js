@@ -9,13 +9,21 @@ let top = 50;
 let bottom = 0;
 let left = 50;
 
+let enemyId = 0;
+
 var jumping = 0;
 var counter = 0;
 function gamePage() {
+  hero.style.top = 0 + "px"
   setInterval(function () {
     var heroTop = parseInt(
       window.getComputedStyle(hero).getPropertyValue("top")
     );
+	//console.log(heroTop);
+	if (heroTop > 550) {	
+		hero.style.top = 0 + "px"
+		gameOver();
+	}
     hero.style.top = heroTop + 3 + "px";
   }, 10);
 
@@ -23,11 +31,13 @@ function gamePage() {
     console.log("e", e.key);
     if (e.repeat) {
       return;
-    } else if (e.key == "w") {
+    } else if (e.key == " ") {
       jump();
-    }
+    } else if (e.key == "g") {
+	gameOver();
+    }	
   });
-
+	
   function jump() {
     jumping = 1;
     let jumpCount = 0;
@@ -44,22 +54,28 @@ function gamePage() {
         jumpCount = 0;
       }
       jumpCount++;
+	
     }, 10);
+
   }
   createEnemy();
 }
+
+
 function startScreen() {
   let start = document.getElementById("startScreen");
   let startBtn = document.getElementById("startBtn");
+  let wrapper =  document.getElementById("wrapper");
   let game = document.getElementById("game");
   //   let gameCanvas = document.getElementById("game");
-
+wrapper.style.display = "none";
   start.style.display = "flex";
   game.style.display = "none";
   gameOverScreenBody.style.display = "none";
 
   startBtn.addEventListener("click", () => {
     console.log("click");
+    
     start.style.display = "none";
     game.style.display = "block";
     // gameCanvas.style.display = "";
@@ -68,17 +84,24 @@ function startScreen() {
 }
 
 function gameOver() {
+
+let wrapper =  document.getElementById("wrapper");
+let game = document.getElementById("game");
+	game.style.display = "none";
+	wrapper.style.display = "block";
   gameOverScreenBody.style.display = "block";
   // sätter ut text
   gameOverText.innerText = "GAME OVER";
   pressXToTryAgain.innerText = "Press X to try again";
   quitGameBtn.innerText = "Quit"; // måste knappen skapas i js ist?
   quitGameBtn.addEventListener("click", () => {
+	//window.location.reload();
     startScreen();
   });
-  pressXToTryAgain.addEventListener("click", () => {
-    startScreen();
-  });
+  //pressXToTryAgain.addEventListener("click", () => {
+	
+  //  startScreen();
+  //});
 }
 // has context menu
 function createEnemy() {
