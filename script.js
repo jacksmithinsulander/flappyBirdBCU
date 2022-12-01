@@ -1,28 +1,34 @@
-// import { createEnemy } from "./modules/enemySpawner.mjs";
-// import { startScreen } from "./modules/startScreen.mjs";
-// import { gameOver } from "./modules/endgame.mjs";
-
 let hero = document.getElementById("hero");
 let game = document.getElementById("game");
 
-let top = 50;
+//let top = 50;
 let bottom = 0;
 let left = 50;
 
 let enemyId = 0;
 
 var jumping = 0;
-var counter = 0;
+//var counter = 0;
 function gamePage() {
+  createEnemy();
+  //let enemyId = 0;
+  //hero.style.display=block;
   hero.style.top = 0 + "px";
-  setInterval(function () {
+  let gravity = setInterval(() => {
     var heroTop = parseInt(
       window.getComputedStyle(hero).getPropertyValue("top")
     );
+    if(jumping==0){
+	hero.style.top = (heroTop+3)+"px";
+    }
     //console.log(heroTop);
     if (heroTop > 550) {
-      hero.style.top = 0 + "px";
+      //hero.style.top = 100 + "px";
       gameOver();
+	clearInterval(gravity);
+      //hero.style.top = 100 + "px";
+	//counter=0;
+	//let enemyId = 0;
     }
     hero.style.top = heroTop + 3 + "px";
   }, 10);
@@ -33,11 +39,10 @@ function gamePage() {
       return;
     } else if (e.key == " ") {
       jump();
-    } else if (e.key == "g") {
-      gameOver();
     }
-  });
 
+  });
+}
   function jump() {
     jumping = 1;
     let jumpCount = 0;
@@ -45,8 +50,8 @@ function gamePage() {
       var heroTop = parseInt(
         window.getComputedStyle(hero).getPropertyValue("top")
       );
-      if (heroTop > 6 && jumpCount < 15) {
-        hero.style.top = heroTop - 8 + "px";
+      if ((heroTop > 6) && (jumpCount < 15)) {
+        hero.style.top = (heroTop - 8) + "px";
       }
       if (jumpCount > 20) {
         clearInterval(jumpInterval);
@@ -56,8 +61,8 @@ function gamePage() {
       jumpCount++;
     }, 10);
   }
-  createEnemy();
-}
+  //createEnemy();
+//}
 
 function startScreen() {
   let start = document.getElementById("startScreen");
@@ -77,22 +82,27 @@ function startScreen() {
     game.style.display = "block";
     // gameCanvas.style.display = "";
     gamePage();
+	hero.style.top = 0 + "px";
   });
 }
 
 function gameOver() {
+	//clearInterval(gravity);
   let wrapper = document.getElementById("wrapper");
   let game = document.getElementById("game");
   game.style.display = "none";
   wrapper.style.display = "block";
+  //hero.style.display="none"
   gameOverScreenBody.style.display = "block";
   // sätter ut text
   gameOverText.innerText = "GAME OVER";
   pressXToTryAgain.innerText = "Press X to try again";
   quitGameBtn.innerText = "Quit"; // måste knappen skapas i js ist?
   quitGameBtn.addEventListener("click", () => {
-    window.location.reload();
+    //window.location.reload();
+    let enemyId = 0; 
     startScreen();
+    wrapper.style.display="none";
   });
   //pressXToTryAgain.addEventListener("click", () => {
 
@@ -101,6 +111,7 @@ function gameOver() {
 }
 // has context menu
 function createEnemy() {
+  //let enemyId = 0;
   enemyId++;
   let enemy = document.createElement("div");
   enemy.classList = "enemy";
@@ -126,24 +137,24 @@ function createEnemy() {
     enemyLeft -= 30;
     enemy.style.left = enemyLeft + "px";
     enemyUnder.style.left = enemyLeft + "px";
-    console.log(enemyBottom, hero.style.top);
+    //console.log(enemyBottom, hero.style.top);
     // console.log(enemyBottom, bottom + 150);
-    console.log();
+    //console.log();
     if (
       enemyBottom > bottom &&
       enemyBottom < bottom + 150 &&
       enemyLeft === left
     ) {
-      console.log("HIT");
+      //console.log("HIT");
       gameOver();
-      let dead = setInterval(() => {
-        hero.style.backgroundColor = "red";
+      //let dead = setInterval(() => {
+        //hero.style.backgroundColor = "red";
 
-        let resurect = setInterval(() => {
-          hero.style.backgroundColor = "purple";
-          clearInterval(dead);
-        }, 100);
-      }, 100);
+        //let resurect = setInterval(() => {
+          //hero.style.backgroundColor = "purple";
+          //clearInterval(dead);
+        //}, 100);
+      //}, 100);
     }
 
     if (enemyLeft <= 0) {
@@ -159,4 +170,3 @@ function createEnemy() {
 }
 startScreen();
 
-// var är gubben =
