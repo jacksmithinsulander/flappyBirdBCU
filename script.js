@@ -13,7 +13,7 @@ function gamePage() {
   createEnemy();
   //let enemyId = 0;
   //hero.style.display=block;
-  hero.style.top = 0 + "px";
+  //hero.style.top = 0 + "px";
   let gravity = setInterval(() => {
     var heroTop = parseInt(
       window.getComputedStyle(hero).getPropertyValue("top")
@@ -26,6 +26,8 @@ function gamePage() {
       //hero.style.top = 100 + "px";
       gameOver();
 	clearInterval(gravity);
+	//clearInterval(enemy);
+	//clearInterval(enemyUnder);
       //hero.style.top = 100 + "px";
 	//counter=0;
 	//let enemyId = 0;
@@ -88,6 +90,9 @@ function startScreen() {
 
 function gameOver() {
 	//clearInterval(gravity);
+  //enemId=0;
+  //game.removeChild(enemy);
+  //game.removeChild(enemyUnder);
   let wrapper = document.getElementById("wrapper");
   let game = document.getElementById("game");
   game.style.display = "none";
@@ -99,7 +104,7 @@ function gameOver() {
   pressXToTryAgain.innerText = "Press X to try again";
   quitGameBtn.innerText = "Quit"; // måste knappen skapas i js ist?
   quitGameBtn.addEventListener("click", () => {
-    //window.location.reload();
+    window.location.reload();
     let enemyId = 0; 
     startScreen();
     wrapper.style.display="none";
@@ -164,7 +169,7 @@ function createEnemy() {
       createEnemy();
     }
   }, 50);
-
+  
   game.appendChild(enemy);
   game.appendChild(enemyUnder);
 }
