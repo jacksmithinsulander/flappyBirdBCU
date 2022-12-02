@@ -1,5 +1,6 @@
 let hero = document.getElementById("hero");
 let game = document.getElementById("game");
+let score = document.getElementById("score");
 
 let bottom = 0;
 let left = 50;
@@ -14,7 +15,7 @@ function gamePage() {
       window.getComputedStyle(hero).getPropertyValue("top")
     );
     if(jumping==0){
-	hero.style.top = (heroTop+3)+"px";
+	hero.style.top = (heroTop+5)+"px";
     }
     if (heroTop > 550) {
       gameOver();
@@ -77,7 +78,7 @@ function gameOver() {
   wrapper.style.display = "block";
   gameOverScreenBody.style.display = "block";
   gameOverText.innerText = "GAME OVER";
-  pressXToTryAgain.innerText = "Press X to try again";
+  pressXToTryAgain.innerText = "Score = " + enemyId;
   quitGameBtn.innerText = "Restart"; 
   quitGameBtn.addEventListener("click", () => {
     window.location.reload();
@@ -89,6 +90,7 @@ function createEnemy() {
     );
 
   enemyId++;
+  let score = document.getElementById("score");
   let enemy = document.createElement("div");
   enemy.classList = "enemy";
   let enemyUnder = document.createElement("div");
@@ -114,11 +116,12 @@ function createEnemy() {
       enemy.remove();
       enemyUnder.remove();
       createEnemy();
+	score.innerText = "score = " + enemyId;
       console.log("hero top is", heroTop, "enemy bottom is", enemyBottom);
-	if (heroTop < (enemyBottom - 90)) {
+	if (heroTop < (enemyBottom - 120)) {
 		console.log("hit over")
 		gameOver();
-		} else if (heroTop > (enemyBottom + 230)) {
+		} else if (heroTop > (enemyBottom + 120)) {
 		console.log("hit under");
 		gameOver();
 	}
