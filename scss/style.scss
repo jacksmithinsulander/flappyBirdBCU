@@ -10,7 +10,8 @@
   width: 600px;
 
   height: 600px;
-
+	background-image:url("../img/pinkwojaks.webp");
+	background-size:cover;
   position: relative;
 
   border: 3px solid red;
@@ -36,6 +37,9 @@
   top: 50px;
 
   left: 50px;
+	border-radius:50%;
+	background-image:url("../img/doge.webp");
+	background-size:cover;
 }
 
 .enemy {
@@ -52,6 +56,8 @@
   top: 0px;
 
   left: 0px;
+	background-image:url("../img/sbf.webp");
+	background-size:contain;
 }
 
 .enemyUnder {
@@ -68,6 +74,9 @@
   bottom: 0px;
 
   left: 0px;
+	background-image:url("../img/sbf.webp");
+	background-size:contain;
+
 }
 
 #wrapper {
@@ -98,6 +107,8 @@
   left: 50%;
 
   transform: translate(-50%, -50%);
+	background-image:url("../img/carlos.webp");
+	background-size:cover;
 }
 
 #gameOverText {
@@ -107,6 +118,11 @@
 
   font-family: fantasy;
 }
+
+#pressXToTryAgain {
+	color:orange;
+}
+
 #body {
   max-height: 100vh;
 }
