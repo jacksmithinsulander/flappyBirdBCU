@@ -5,6 +5,11 @@ let score = document.getElementById("score");
 let bottom = 0;
 let left = 50;
 
+//var backgroundMusic = new Audio("FlappyBirdNextLevel.wav");
+//backgroundMusic.play();
+
+var ohMyGod = new Audio ("omg.m4a");
+
 let enemyId = 0;
 
 var jumping = 0;
@@ -23,17 +28,19 @@ function gamePage() {
     }
     hero.style.top = heroTop + 3 + "px";
   }, 10);
-
+  var jumpSound = new Audio("bounce.m4a")
   document.addEventListener("keydown", (e) => {
     if (e.repeat) {
       return;
     } else if (e.key == " ") {
+	jumpSound.play();
       jump();
     }
 
   });
 }
   function jump() {
+    //jumpSound.play();
     jumping = 1;
     let jumpCount = 0;
     var jumpInterval = setInterval(function () {
@@ -72,6 +79,7 @@ function startScreen() {
 }
 
 function gameOver() {
+  ohMyGod.play();
   let wrapper = document.getElementById("wrapper");
   let game = document.getElementById("game");
   game.style.display = "none";
